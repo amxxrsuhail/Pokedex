@@ -1,0 +1,27 @@
+<div *ngIf="pokemon" class="pokemon-detail">
+    <h2>{{ pokemon.name }}</h2>
+    <!-- <p>ID: {{ pokemon.id }}</p> -->
+    <p><img width="200" height="200" [src]="pokemon.sprites.front_default"></p>
+    <p>Type: {{ pokemon.types[0].type.name }}</p>
+    <p>Height: {{ pokemon.height }}</p>
+    <p>Weight: {{ pokemon.weight }}</p>
+    <p>Abilities: 
+        <ng-container *ngFor="let ability of pokemon.abilities">
+            {{ ability.ability.name }} 
+            <ng-container *ngIf="!isLastItem(ability)">, </ng-container>
+        </ng-container>
+    </p>
+    <p>Stats: 
+      <ng-container *ngFor="let stat of pokemon.stats; let last = last">
+          {{ stat.stat.name }} - {{ stat.base_stat }}
+          <ng-container *ngIf="!last">, </ng-container>
+      </ng-container>
+  </p>
+    <p>Moves: 
+        <ng-container *ngFor="let move of pokemon.moves.slice(0, 5); let last = last">
+            {{ move.move.name }}
+            <ng-container *ngIf="!last">, </ng-container>
+        </ng-container>
+    </p>
+    
+  </div>
