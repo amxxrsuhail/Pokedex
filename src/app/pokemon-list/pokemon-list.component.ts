@@ -21,6 +21,14 @@ export class PokemonListComponent implements OnInit {
     private router: Router
   ) { }
 
+  goToPokemonDetails(name: string) {
+    // console.log(name);
+    this.dataservice.getPokemon(name).subscribe(pokemon => {
+      console.log(pokemon);
+      this.router.navigate([`/pokemon-list/${name}`], { state: { pokemon } });
+    });
+  }
+
   ngOnInit(): void {
     this.getPokemons();
   }
