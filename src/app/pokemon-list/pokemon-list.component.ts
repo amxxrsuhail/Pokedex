@@ -15,12 +15,15 @@ export class PokemonListComponent implements OnInit {
   page = 0;
   totalPokemons: number = 0;
   itemsPerPage = 10;
+  sortOrder = 'asc'; 
+  sortBy = 'id'; 
 
   constructor(
     private dataservice: DataService,
     private router: Router
   ) { }
 
+  //dedicated page 
   goToPokemonDetails(name: string) {
     // console.log(name);
     this.dataservice.getPokemon(name).subscribe(pokemon => {
@@ -49,5 +52,24 @@ export class PokemonListComponent implements OnInit {
             });
         });
       })
+  }
+
+  //for sorting
+  sort(sortBy: string) {
+    let sortKey = sortBy.split('_')[0];
+    let sortDirection = sortBy.split('_')[1];
+
+    this.sortBy = sortKey;
+    this.sortOrder = sortDirection;
+
+    this.filteredPokemons.sort((a, b) => {
+      if (a[sortKey] < b[sortKey]) {
+        return sortDirection === 'asc' ? -1 : 1;
+      }
+      if (a[sortKey] > b[sortKey]) {
+        return sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
   }
 }
