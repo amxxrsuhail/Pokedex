@@ -1,5 +1,5 @@
 <div class="bg-black text-center flex h-screen">
-  <div *ngIf="pokemon" class="card w-96 bg-base-300 m-auto mt-0">
+  <div *ngIf="pokemon" class="card w-96 bg-base-300 m-auto mt-0 p-7 pb-20">
     <figure><img width="200" height="200" [src]="pokemon.sprites.front_default" /></figure>
     <h1 class="text-3xl">
       <b>{{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}</b>
