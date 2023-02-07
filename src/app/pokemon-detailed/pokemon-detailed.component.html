@@ -1,29 +1,32 @@
 <div class="bg-black text-center flex h-screen">
-    <div *ngIf="pokemon" class="card w-96 bg-base-300 m-auto mt-0">
-        <figure><img width="200" height="200" [src]="pokemon.sprites.front_default"></figure>
-        <h1 class=" text-3xl">
-            <b>{{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}</b>
-        </h1>
-        <p><b>Type: </b>{{ pokemon.types[0].type.name }}</p>
-        <p><b>Height: </b>{{ pokemon.height }}</p>
-        <p><b>Weight: </b>{{ pokemon.weight }}</p>
-        <p><b>Abilities: </b>
-            <ng-container *ngFor="let ability of pokemon.abilities">
-                {{ ability.ability.name }}
-                <ng-container *ngIf="!isLastItem(ability)">, </ng-container>
-            </ng-container>
-        </p>
-        <p><b>Stats: </b>
-            <ng-container *ngFor="let stat of pokemon.stats; let last = last">
-                {{ stat.stat.name }} - {{ stat.base_stat }}
-                <ng-container *ngIf="!last">, </ng-container>
-            </ng-container>
-        </p>
-        <p><b>Moves: </b>
-            <ng-container *ngFor="let move of pokemon.moves.slice(0, 5); let last = last">
-                {{ move.move.name }}
-                <ng-container *ngIf="!last">, </ng-container>
-            </ng-container>
-        </p>
-    </div>
+  <div *ngIf="pokemon" class="card w-96 bg-base-300 m-auto mt-0">
+    <figure><img width="200" height="200" [src]="pokemon.sprites.front_default" /></figure>
+    <h1 class="text-3xl">
+      <b>{{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}</b>
+    </h1>
+    <p><b>Type: </b>{{ pokemon.types[0].type.name }}</p>
+    <p><b>Height: </b>{{ pokemon.height }}</p>
+    <p><b>Weight: </b>{{ pokemon.weight }}</p>
+    <p>
+      <b>Abilities: </b>
+      <ng-container *ngFor="let ability of pokemon.abilities">
+        {{ ability.ability.name }}
+        <ng-container *ngIf="!isLastItem(ability)">, </ng-container>
+      </ng-container>
+    </p>
+    <p>
+      <b>Stats: </b>
+      <ng-container *ngFor="let stat of pokemon.stats; let last = last">
+        {{ stat.stat.name }} - {{ stat.base_stat }}
+        <ng-container *ngIf="!last">, </ng-container>
+      </ng-container>
+    </p>
+    <p>
+      <b>Moves: </b>
+      <ng-container *ngFor="let move of pokemon.moves.slice(0, 5); let last = last">
+        {{ move.move.name }}
+        <ng-container *ngIf="!last">, </ng-container>
+      </ng-container>
+    </p>
+  </div>
 </div>

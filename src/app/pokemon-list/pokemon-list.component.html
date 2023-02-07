@@ -1,74 +1,77 @@
 <div class="h-screen flex flex-col">
+  <!-- for search button -->
+  <div class="w-50 h-screen flex items-center justify-center bg-black">
+    <input
+      type="text"
+      class="input input-bordered input-success w-full max-w-lg mb-20"
+      placeholder="Search by name, number, type..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="search()"
+    />
+  </div>
 
-    <!-- for search button -->
-    <div class="w-50  h-screen flex items-center justify-center bg-black">
-        <input type="text" class="input input-bordered input-success  w-full max-w-lg mb-20"
-            placeholder="Search by name, number, type..." [(ngModel)]="searchTerm" (ngModelChange)="search()">
-    </div>
+  <!-- for sort option -->
+  <div class="text-right">
+    <label class="text-sm font-medium m-4">Sort By:</label>
+    <select
+      style="width: 150px"
+      class="select select-bordered w-full max-w-xs m-2"
+      id="sortSelect"
+      [(ngModel)]="sortBy"
+      (ngModelChange)="sort($event)"
+    >
+      <option [value]="'id_asc'">ID (Ascending)</option>
+      <option [value]="'id_desc'">ID (Descending)</option>
+      <option [value]="'name_asc'">Name (A-Z)</option>
+      <option [value]="'name_desc'">Name (Z-A)</option>
+    </select>
+  </div>
 
-    <!-- for sort option -->
-    <div class="text-right">
-        <label class="text-sm font-medium m-4">Sort By:</label>
-        <select style="width: 150px; " class="select select-bordered w-full max-w-xs m-2" id="sortSelect"
-            [(ngModel)]="sortBy" (ngModelChange)="sort($event)">
-            <option [value]="'id_asc'">ID (Ascending)</option>
-            <option [value]="'id_desc'">ID (Descending)</option>
-            <option [value]="'name_asc'">Name (A-Z)</option>
-            <option [value]="'name_desc'">Name (Z-A)</option>
-        </select>
-    </div>
+  <!-- for table content -->
+  <div>
+    <table class="text-center table w-full">
+      <thead>
+        <tr class="bg-gray-100 text-sm">
+          <th scope="col" class="px-4 py-2">ID</th>
+          <th scope="col" class="px-4 py-2">Name</th>
+          <th scope="col" class="px-4 py-2">Default Sprite</th>
+          <th scope="col" class="px-4 py-2">Base Experience</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let pokemon of filteredPokemons | paginate : { itemsPerPage: itemsPerPage, currentPage: page }"
+          class="text-sm hover"
+          (click)="goToPokemonDetails(pokemon.name)"
+        >
+          <td class="px-4 py-2">{{ pokemon.id | number : "3.0-0" }}</td>
+          <td class="px-4 py-2">{{ pokemon.name }}</td>
+          <td class="px-4 py-2 text-center">
+            <img class="mx-auto" [src]="pokemon.sprites.front_default" alt="pokemon" width="100" height="100" />
+          </td>
+          <td class="px-4 py-2">{{ pokemon.base_experience }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <!-- for table content -->
-    <div>
-        <table class="text-center table w-full">
-            <thead>
-                <tr class="bg-gray-100 text-sm ">
-                    <th scope="col" class="px-4 py-2">ID</th>
-                    <th scope="col" class="px-4 py-2">Name</th>
-                    <th scope="col" class="px-4 py-2">Default Sprite</th>
-                    <th scope="col" class="px-4 py-2">Base Experience</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let pokemon of filteredPokemons | paginate : { itemsPerPage: itemsPerPage, currentPage: page }"
-                    class="text-sm hover" (click)="goToPokemonDetails(pokemon.name)">
-                    <td class="px-4 py-2">{{ pokemon.id | number : "3.0-0" }}</td>
-                    <td class="px-4 py-2">{{ pokemon.name }}</td>
-                    <td class="px-4 py-2 text-center">
-                        <img class="mx-auto" [src]="pokemon.sprites.front_default" alt="pokemon" width="100"
-                            height="100" />
-                    </td>
-                    <td class="px-4 py-2">{{ pokemon.base_experience }}</td>
-                </tr>
-            </tbody>
-        </table>
+  <!-- for page navigation and items per page      -->
+  <div class="mb-6 flex items-center justify-between bg-base-300 px-4 py-7 sm:px-6">
+    <div class="text-white">
+      <pagination-controls
+        class="justify-center"
+        previousLabel="Previous"
+        nextLabel="Next"
+        (pageChange)="page = $event"
+      ></pagination-controls>
     </div>
-
-    <!-- for page navigation and items per page      -->
-    <div class=" mb-6 flex items-center justify-between bg-base-300 px-4 py-7 sm:px-6  ">
-        <div class="text-white">
-            <pagination-controls class="justify-center " previousLabel="Previous" nextLabel="Next"
-                (pageChange)="page = $event"></pagination-controls>
-        </div>
-        <div role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-            <select class="select select-bordered w-full max-w-xs m-2" id="paginationSelect" [(ngModel)]="itemsPerPage">
-                <option value="10">Items per page</option>
-                <option [value]="10">10</option>
-                <option [value]="25">25</option>
-                <option [value]="50">50</option>
-            </select>
-        </div>
+    <div role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+      <select class="select select-bordered w-full max-w-xs m-2" id="paginationSelect" [(ngModel)]="itemsPerPage">
+        <option value="10">Items per page</option>
+        <option [value]="10">10</option>
+        <option [value]="25">25</option>
+        <option [value]="50">50</option>
+      </select>
     </div>
+  </div>
 </div>
-
-<!--  
-    <div class="text-right">
-        <label class="text-sm font-medium m-4">Sort By:</label>
-        <select style="width: 150px; " class="select select-bordered w-full max-w-xs m-2" id="sortSelect"
-            [(ngModel)]="sortBy" (ngModelChange)="sort($event)">
-            <option [value]="'id_asc'">ID (Ascending)</option>
-            <option [value]="'id_desc'">ID (Descending)</option>
-            <option [value]="'name_asc'">Name (A-Z)</option>
-            <option [value]="'name_desc'">Name (Z-A)</option>
-        </select>
-    </div> -->

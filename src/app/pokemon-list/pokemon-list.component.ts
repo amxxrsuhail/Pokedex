@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import {Pokemon} from '../services/pokemons';
+import { Pokemon } from '../services/pokemons';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -14,8 +14,8 @@ export class PokemonListComponent implements OnInit {
   page = 0;
   totalPokemons: number = 0;
   itemsPerPage = 10;
-  sortOrder = 'asc'; 
-  sortBy = 'id'; 
+  sortOrder = 'asc';
+  sortBy = 'id';
   searchTerm: string = '';
 
   constructor(

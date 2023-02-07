@@ -14,7 +14,7 @@ export class PokemonDetailedComponent implements OnInit {
     this.pokemon = history.state.pokemon;
   }
 
-  isLastItem(item:any) {
+  isLastItem(item: any) {
     return item === this.pokemon.abilities[this.pokemon.abilities.length - 1];
   }
 
