@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pokemon-detailed',
-  templateUrl: './pokemon-detailed.component.html',
-  styleUrls: ['./pokemon-detailed.component.scss']
+  templateUrl: './pokemon-detailed.component.html'
 })
 export class PokemonDetailedComponent implements OnInit {
   pokemon: any;
