@@ -1,7 +1,7 @@
-<div class="bg-black text-center flex h-screen">
-  <div *ngIf="pokemon" class="card w-96 bg-base-300 m-auto mt-0 p-7 pb-20">
+<div class="bg-black text-left flex h-screen">
+  <div *ngIf="pokemon" class="card w-96 bg-base-300 m-auto mt-0 p-10">
     <figure><img width="200" height="200" [src]="pokemon.sprites.front_default" /></figure>
-    <h1 class="text-3xl">
+    <h1 class="text-3xl text-center mb-6">
       <b>{{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}</b>
     </h1>
     <p><b>Type: </b>{{ pokemon.types[0].type.name }}</p>
