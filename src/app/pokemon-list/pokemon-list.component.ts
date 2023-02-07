@@ -34,6 +34,7 @@ export class PokemonListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPokemons();
+    this.sortBy = "sort_by";
   }
 
   //get pokemons
