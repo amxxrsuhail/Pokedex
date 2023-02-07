@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import {Pokemon} from '../services/pokemons';
 
-
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
+
 export class PokemonListComponent implements OnInit {
   pokemons: Pokemon[] = [];
   filteredPokemons: any[] = [];
@@ -17,6 +17,7 @@ export class PokemonListComponent implements OnInit {
   itemsPerPage = 10;
   sortOrder = 'asc'; 
   sortBy = 'id'; 
+  searchTerm: string = '';
 
   constructor(
     private dataservice: DataService,
@@ -36,7 +37,6 @@ export class PokemonListComponent implements OnInit {
     this.getPokemons();
   }
 
-
   //get pokemons
   getPokemons() {
     this.dataservice.getPokemons(101, this.page + 0)
@@ -52,6 +52,18 @@ export class PokemonListComponent implements OnInit {
             });
         });
       })
+  }
+
+  // for searching 
+  search() {
+    if (this.searchTerm != "") {
+      this.filteredPokemons = this.pokemons.filter((pokemon) => {
+        return (pokemon.name.toLowerCase() === this.searchTerm.toLowerCase() || pokemon.id.toString() === this.searchTerm.replace(/^0+/, '') || pokemon.types[0].type.name === this.searchTerm.toLowerCase());
+      });
+    }
+    else {
+      this.filteredPokemons = this.pokemons;
+    }
   }
 
   //for sorting

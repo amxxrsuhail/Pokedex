@@ -1,3 +1,15 @@
+<!-- for search button  -->
+<div class="form-group my-4 d-flex justify-content-center">
+    <div class="input-group w-50">
+        <input type="text" class="form-control" placeholder="Search by name, number, type..." [(ngModel)]="searchTerm"
+            (ngModelChange)="search()" />
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" (click)="search()">
+                Search
+            </button>
+        </div>
+    </div>
+
 <!-- for sort option  -->
 <div class="sort ml-3">
     <label for="sortSelect">Sort by:</label>
@@ -20,10 +32,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="
-        let pokemon of filteredPokemons
-          | paginate : { itemsPerPage: itemsPerPage, currentPage: page }
-      ">
+        <tr *ngFor="let pokemon of filteredPokemons | paginate : { itemsPerPage: itemsPerPage, currentPage: page }">
             <td>{{ pokemon.id | number : "3.0-0" }}</td>
             <td>{{ pokemon.name }}</td>
             <td>
@@ -31,9 +40,7 @@
             </td>
             <td>{{ pokemon.base_experience }}</td>
             <td>
-                <button class="btn btn-primary" (click)="goToPokemonDetails(pokemon.name)">
-                    Details
-                </button>
+                <button class="btn btn-primary" (click)="goToPokemonDetails(pokemon.name)">Details</button>
             </td>
         </tr>
     </tbody>
